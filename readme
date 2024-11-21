@@ -1,0 +1,87 @@
+1.Nyalakan XAMPP
+
+Aktifkan Apache dan MySQL melalui XAMPP Control Panel.
+Pastikan kedua layanan berjalan tanpa error.
+
+2.Install Dependensi Composer
+Jalankan perintah berikut di terminal Anda:
+
+composer install
+composer update
+
+3.Siapkan File Konfigurasi .env
+
+Duplikat file .env.example / env.backup menjadi .env:
+
+Edit file .env sesuai dengan konfigurasi database lokal Anda:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ats_test
+DB_USERNAME=root
+DB_PASSWORD=
+
+4.Buat Database di MySQL
+
+Akses phpMyAdmin melalui http://localhost/phpmyadmin.
+Buat database baru dengan nama yang sesuai di file .env (misalnya, ats_test).
+
+atau bisa import dari file ats_test.sql
+
+5.Migrasi dan Seeder Database
+Jalankan perintah berikut untuk menghapus, membuat ulang, dan mengisi database:
+
+php artisan migrate:fresh --seed
+migrate:fresh: Menghapus semua tabel lalu membuat ulang berdasarkan migrasi.
+--seed: Menjalankan seeder untuk mengisi database dengan data awal.
+
+6.Generate Application Key
+Buat kunci aplikasi Laravel:
+
+php artisan key:generate
+
+7.Jalankan Server Laravel
+Jalankan perintah untuk memulai server lokal Laravel:
+
+php artisan serve
+Proyek Anda akan tersedia di:
+http://127.0.0.1:8000/
+
+cara import postman collection
+
+1.Buka Postman dan Pilih "Import": Di Postman,
+2. klik tombol Import yang terletak di bagian kiri atas.
+3. Pilih File: Setelah itu, pilih tab File, kemudian klik Choose Files dan pilih file ATS.postman_collection.json yang ingin diimpor.
+Selesai: Setelah file diimpor, Anda akan melihat koleksi tersebut di bagian kiri Postman Anda.
+
+jika belum masuk environment nya 
+buat environment dengan klik di pojok kanan atas no environment 
+klik icon +
+add dengan nama contoh : localhost 
+variable: base_url isi initial value dengan http://127.0.0.1:8000/
+buat bagian global: 
+nama: token 
+
+cara pakai 
+
+1. user atau pembeli 
+- buka bagian folder User klik request Login 
+cek bagian raw 
+isi dengan 
+  "email": "customer1@example.com",
+  "password": "password"
+
+  pada response block bagian token , klik kanan set Globals lalu pilih token 
+- masuk ke folder Customer lalu folder cart buat cart dahulu sebelum membuat transaksi 
+disitu juga ada crud untuk cart dan all product dan juga view transaksi 
+
+2. merchant 
+- buka bagian folder User klik request Login 
+cek bagian raw 
+isi dengan 
+   "email": "merchant1@example.com",
+   "password": "password"
+- masuk ke folder Merchant lalu disitu juga ada CRUD Product dan semua  customer yang 
+punya transaksi dengan produk kita 
+
